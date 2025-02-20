@@ -29,7 +29,7 @@ export class UserService {
       return {data: null, message: "User not found"};
     }
     const doc = snapshot.docs[0];
-    return {data: {id: doc.id, ...doc.data()} as User, message: "success"};
+    return {data: {userId: doc.id, ...doc.data()} as User, message: "success"};
   }
 
   /**
@@ -40,6 +40,6 @@ export class UserService {
    */
   async createUser(user: User): Promise<{ data: User; message: string }> {
     const newUser = await db.collection("users").add(user);
-    return {data: {id: newUser.id, ...user}, message: "success"};
+    return {data: {userId: newUser.id, ...user}, message: "success"};
   }
 }

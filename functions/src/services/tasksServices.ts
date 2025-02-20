@@ -32,7 +32,6 @@ export class TaskService {
         .where("userId", "==", userId)
         .orderBy("createdAt", "desc")
         .get();
-      logger.debug("DATA", snapshot);
       const tasks = snapshot.docs.map((doc) => {
         const data = doc.data();
         return {
@@ -79,7 +78,9 @@ export class TaskService {
     id: string, task: Task
   ): Promise<{ data: object; message: string }> {
     try {
-      await db.collection("tasks").doc(id).set(task);
+      const taskData = {...task};
+      logger.debug("DATA", taskData);
+      await db.collection("tasks").doc(id).update(taskData);
       return {data: {}, message: "success"};
     } catch (error) {
       logger.error("Error updating task:", error);
