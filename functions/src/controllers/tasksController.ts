@@ -6,9 +6,7 @@ const taskService = new TaskService();
 
 export const getTasks = async (req: Request, res: Response) => {
   try {
-    logger.info("Tasks Enetered");
     const userId = req.query.userId as string;
-    logger.info("USER ID", userId);
     const tasks = await taskService.getTasksForUser(userId);
     res.status(200).json(tasks);
   } catch (error) {
