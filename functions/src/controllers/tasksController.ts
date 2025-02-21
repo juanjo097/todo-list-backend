@@ -8,7 +8,7 @@ export const getTasks = async (req: Request, res: Response) => {
   try {
     const userId = req.query.userId as string;
     if (!userId) {
-      res.status(400).send("The userId required");
+      res.status(400).send("The userId is required");
     }
     const tasks = await taskService.getTasksForUser(userId);
     res.status(200).json(tasks);
@@ -37,6 +37,9 @@ export const createTask = async (req: Request, res: Response) => {
 export const updateTask = async (req: Request, res: Response) => {
   try {
     const id = req.query.id as string;
+    if (!id) {
+      res.status(400).send("The Task Id is required");
+    }
     const task = await taskService.updateTask(id, req.body);
     res.status(200).json(task);
   } catch (error) {
@@ -51,6 +54,9 @@ export const updateTask = async (req: Request, res: Response) => {
 export const deleteTask = async (req: Request, res: Response) => {
   try {
     const id = req.query.id as string;
+    if (!id) {
+      res.status(400).send("The Task Id is required");
+    }
     await taskService.deleteTask(id);
     res.status(204).json();
   } catch (error) {
