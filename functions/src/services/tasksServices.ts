@@ -100,7 +100,7 @@ export class TaskService {
       await db.collection("tasks").doc(id).delete();
       return {data: {}, message: "success"};
     } catch (error) {
-      logger.error("Error updating task:", error);
+      logger.error("Error deleting task:", error);
       return {data: {}, message: "error"};
     }
   }
