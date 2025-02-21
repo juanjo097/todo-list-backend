@@ -7,6 +7,9 @@ const taskService = new TaskService();
 export const getTasks = async (req: Request, res: Response) => {
   try {
     const userId = req.query.userId as string;
+    if (!userId) {
+      res.status(400).send("The userId required");
+    }
     const tasks = await taskService.getTasksForUser(userId);
     res.status(200).json(tasks);
   } catch (error) {
