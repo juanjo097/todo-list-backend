@@ -7,7 +7,6 @@ const userService = new UserService();
 export const getUser = async (req: Request, res: Response) => {
   try {
     const email = req.query.email as string;
-    logger.info("DATA", req.params.email);
     if (!email) {
       res.status(400).send("The email is required");
     }
